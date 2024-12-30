@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Behavioral Game Theory Simulations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #6200ea;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        section {
+            padding: 2rem;
+        }
+        .simulation {
+            margin: 2rem 0;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+        }
+        .output {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px dashed #6200ea;
+            background: #e8f4ff;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #6200ea;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Behavioral Game Theory Simulations</h1>
+    </header>
+    <section>
+        <div class="simulation" id="ultimatum-game">
+            <h2>Ultimatum Game Simulation</h2>
+            <label for="offer">Proposer's Offer (0-10): </label>
+            <input type="number" id="offer" min="0" max="10">
+            <label for="response">Responder's Response: </label>
+            <select id="response">
+                <option value="accept">Accept</option>
+                <option value="reject">Reject</option>
+            </select>
+            <button onclick="simulateUltimatumGame()">Submit</button>
+            <div class="output" id="ultimatum-output">
+                Results will be displayed here.
+            </div>
+        </div>
+
+        <div class="simulation" id="trust-game">
+            <h2>Trust Game Simulation</h2>
+            <label for="send">Amount Sent by Sender (0-10): </label>
+            <input type="number" id="send" min="0" max="10">
+            <label for="return">Amount Returned by Receiver: </label>
+            <input type="number" id="return" min="0" max="30">
+            <button onclick="simulateTrustGame()">Submit</button>
+            <div class="output" id="trust-output">
+                Results will be displayed here.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function simulateUltimatumGame() {
+            const offer = parseFloat(document.getElementById('offer').value);
+            const response = document.getElementById('response').value;
+
+            let result;
+            if (response === 'accept') {
+                result = `The responder accepted the offer. Proposer keeps $${10 - offer}, and responder gets $${offer}.`;
+            } else {
+                result = `The responder rejected the offer. Both players receive $0.`;
+            }
+
+            document.getElementById('ultimatum-output').textContent = result;
+        }
+
+        function simulateTrustGame() {
+            const sent = parseFloat(document.getElementById('send').value);
+            const returned = parseFloat(document.getElementById('return').value);
+
+            const senderPayoff = 10 - sent + returned;
+            const receiverPayoff = (sent * 3) - returned;
+
+            const result = `Sender's Payoff: $${senderPayoff.toFixed(2)}. Receiver's Payoff: $${receiverPayoff.toFixed(2)}.`;
+
+            document.getElementById('trust-output').textContent = result;
+        }
+    </script>
+</body>
+</html>
