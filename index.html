@@ -1,110 +1,262 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Behavioral Game Theory Simulations</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-        header {
-            background-color: #6200ea;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-        }
-        section {
-            padding: 2rem;
-        }
-        .simulation {
-            margin: 2rem 0;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background: #fff;
-        }
-        .output {
-            margin-top: 1rem;
-            padding: 1rem;
-            border: 1px dashed #6200ea;
-            background: #e8f4ff;
-        }
-        button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            background: #6200ea;
-            color: #fff;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #3700b3;
-        }
-    </style>
+    <title>Behavioral Economics Game Tools</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Behavioral Game Theory Simulations</h1>
+        <h1>Behavioral Economics Game Tools</h1>
+        <p>Explore interactive activities to learn and apply behavioral game theory concepts.</p>
     </header>
-    <section>
-        <div class="simulation" id="ultimatum-game">
-            <h2>Ultimatum Game Simulation</h2>
-            <label for="offer">Proposer's Offer (0-10): </label>
-            <input type="number" id="offer" min="0" max="10">
-            <label for="response">Responder's Response: </label>
-            <select id="response">
-                <option value="accept">Accept</option>
-                <option value="reject">Reject</option>
-            </select>
-            <button onclick="simulateUltimatumGame()">Submit</button>
-            <div class="output" id="ultimatum-output">
-                Results will be displayed here.
-            </div>
-        </div>
+    <nav>
+        <ul>
+            <li><a href="ultimatum.html">Ultimatum Game</a></li>
+            <li><a href="trust.html">Trust Game</a></li>
+            <li><a href="public_goods.html">Public Goods Game</a></li>
+            <li><a href="speculative_bubble.html">Speculative Bubbles</a></li>
+            <li><a href="rock_paper_scissors.html">Rock-Paper-Scissors</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <p>Created by Mesfin Genie, PhD. &copy; 2024</p>
+    </footer>
+</body>
+</html>
 
-        <div class="simulation" id="trust-game">
-            <h2>Trust Game Simulation</h2>
-            <label for="send">Amount Sent by Sender (0-10): </label>
-            <input type="number" id="send" min="0" max="10">
-            <label for="return">Amount Returned by Receiver: </label>
-            <input type="number" id="return" min="0" max="30">
-            <button onclick="simulateTrustGame()">Submit</button>
-            <div class="output" id="trust-output">
-                Results will be displayed here.
-            </div>
-        </div>
-    </section>
+<!-- styles.css -->
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+}
 
+header {
+    background-color: #0078d7;
+    color: white;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 10px 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    color: #0078d7;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+
+<!-- ultimatum.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimatum Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ultimatum Game</h1>
+    </header>
+    <main>
+        <p>Proposers decide how to split $10. Responders accept or reject the offer. Let’s analyze fairness and decision-making!</p>
+        <button onclick="startGame()">Start Simulation</button>
+        <div id="gameOutput"></div>
+    </main>
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
     <script>
-        function simulateUltimatumGame() {
-            const offer = parseFloat(document.getElementById('offer').value);
-            const response = document.getElementById('response').value;
-
-            let result;
-            if (response === 'accept') {
-                result = `The responder accepted the offer. Proposer keeps $${10 - offer}, and responder gets $${offer}.`;
-            } else {
-                result = `The responder rejected the offer. Both players receive $0.`;
+        function startGame() {
+            const offers = [];
+            for (let i = 0; i < 10; i++) {
+                const offer = Math.floor(Math.random() * 11); // Random offer between 0 and 10
+                const accept = offer >= 4 ? 'Accepted' : 'Rejected';
+                offers.push(`Offer: $${offer}, ${accept}`);
             }
-
-            document.getElementById('ultimatum-output').textContent = result;
+            document.getElementById('gameOutput').innerHTML = offers.join('<br>');
         }
+    </script>
+</body>
+</html>
 
-        function simulateTrustGame() {
-            const sent = parseFloat(document.getElementById('send').value);
-            const returned = parseFloat(document.getElementById('return').value);
+<!-- trust.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trust Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Trust Game</h1>
+    </header>
+    <main>
+        <p>Senders decide how much to send to receivers. The amount sent is tripled, and receivers decide how much to return.</p>
+        <button onclick="startTrustGame()">Start Simulation</button>
+        <div id="trustOutput"></div>
+    </main>
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
+    <script>
+        function startTrustGame() {
+            const results = [];
+            for (let i = 0; i < 10; i++) {
+                const sent = Math.floor(Math.random() * 11); // Random amount sent
+                const returned = Math.floor(sent * 3 * Math.random()); // Random return amount
+                results.push(`Sent: $${sent}, Returned: $${returned}`);
+            }
+            document.getElementById('trustOutput').innerHTML = results.join('<br>');
+        }
+    </script>
+</body>
+</html>
 
-            const senderPayoff = 10 - sent + returned;
-            const receiverPayoff = (sent * 3) - returned;
+<!-- public_goods.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Goods Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Public Goods Game</h1>
+    </header>
+    <main>
+        <p>Players decide how much to contribute to a public fund. Contributions benefit all, but individual incentives may conflict with group benefit.</p>
+        <button onclick="startPublicGoodsGame()">Start Simulation</button>
+        <div id="publicGoodsOutput"></div>
+    </main>
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
+    <script>
+        function startPublicGoodsGame() {
+            const results = [];
+            for (let i = 0; i < 10; i++) {
+                const contributed = Math.floor(Math.random() * 11); // Random contribution
+                const groupBenefit = contributed * 2; // Example multiplier for group benefit
+                results.push(`Contributed: $${contributed}, Group Benefit: $${groupBenefit}`);
+            }
+            document.getElementById('publicGoodsOutput').innerHTML = results.join('<br>');
+        }
+    </script>
+</body>
+</html>
 
-            const result = `Sender's Payoff: $${senderPayoff.toFixed(2)}. Receiver's Payoff: $${receiverPayoff.toFixed(2)}.`;
+<!-- speculative_bubble.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speculative Bubbles</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Speculative Bubbles</h1>
+    </header>
+    <main>
+        <p>Simulate speculative market dynamics. Observe how prices evolve and identify when bubbles burst.</p>
+        <canvas id="bubbleChart" width="400" height="200"></canvas>
+    </main>
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('bubbleChart').getContext('2d');
+        const bubbleChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Round 5'],
+                datasets: [{
+                    label: 'Price',
+                    data: [10, 20, 35, 60, 10],
+                    borderColor: 'blue',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
 
-            document.getElementById('trust-output').textContent = result;
+<!-- rock_paper_scissors.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock-Paper-Scissors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Rock-Paper-Scissors</h1>
+    </header>
+    <main>
+        <p>Play against a computer and test your strategy!</p>
+        <button onclick="playGame('rock')">Rock</button>
+        <button onclick="playGame('paper')">Paper</button>
+        <button onclick="playGame('scissors')">Scissors</button>
+        <p id="result"></p>
+    </main>
+    <footer>
+        <a href="index.html">Back to Home</a>
+    </footer>
+    <script>
+        function playGame(playerChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result;
+            if (playerChoice === computerChoice) {
+                result = 'It\'s a tie!';
+            } else if (
+                (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                (playerChoice === 'paper' && computerChoice === 'rock') ||
+                (playerChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = 'You win!';
+            } else {
+                result = 'You lose!';
+            }
+            document.getElementById('result').innerText = `Computer chose: ${computerChoice}. ${result}`;
         }
     </script>
 </body>
